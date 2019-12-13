@@ -25,7 +25,7 @@ def check_data():
         prod_pesudo_value = "pesudo"
 
     for keyname in keynames: 
-        app_details, key_name = get_env_details(keyname, Envvalue, prod_pesudo_value)
+        app_details, key_name = get_env_details(keyname, Envvalue, keyname, prod_pesudo_value)
         app_ids_to_post = get_details_by_env(app_details, Envvalue)
         result = check_endpoint(app_ids_to_post, key_name)
         res.config(text=result)
@@ -45,7 +45,7 @@ def getdata():
     
     for keyname in keynames:    
         app_details, key_name = get_env_details(keyname, Envvalue, prod_pesudo_value)
-        app_ids_to_post = get_details_by_env(app_details, Envvalue, include_global)  # Filter by environment 
+        app_ids_to_post = get_details_by_env(app_details, Envvalue, keyname, include_global)  # Filter by environment 
         result = update_with_post(app_ids_to_post, Envvalue, key_name, prod_pesudo_value)
 label_0 = Label(root, text="ENDPOINT CHANGER",width=20,font=("Verdana 20 bold"), bg="LightSteelBlue1")
 label_0.place(x=50,y=53)
