@@ -35,7 +35,8 @@ def getdata():
     prod_pesudo_value = ""
     keynames = get_value()
     Envvalue = Environment.get()
-    include_global = is_global()
+    include_global = is_global(need_global)
+    global_only = is_global(only_global)
     prod_pesudo = var.get()
     # print(prod_pesudo)
     if(prod_pesudo == 1):
@@ -45,7 +46,7 @@ def getdata():
     
     for keyname in keynames:    
         app_details, key_name = get_env_details(keyname, Envvalue, prod_pesudo_value)
-        app_ids_to_post = get_details_by_env(app_details, Envvalue, keyname, include_global)  # Filter by environment 
+        app_ids_to_post = get_details_by_env(app_details, Envvalue, keyname, include_global, global_only)  # Filter by environment 
         result = update_with_post(app_ids_to_post, Envvalue, key_name, prod_pesudo_value)
 label_0 = Label(root, text="ENDPOINT CHANGER",width=20,font=("Verdana 20 bold"), bg="LightSteelBlue1")
 label_0.place(x=50,y=53)
@@ -62,9 +63,10 @@ key6=IntVar()
 key7=IntVar()
 key8=IntVar()
 need_global = IntVar()
+only_global = IntVar()
 
-def is_global():
-    return bool(need_global.get())
+def is_global(check_box):
+    return bool(check_box.get())
 
 def get_value():
     name = ['AffiliateId', 'ChannelName', 'ContentServiceEndpoint', 'LocalizationService',
@@ -116,8 +118,9 @@ Radiobutton(root, text="Prod",padx = 5, variable=var, value=1,
 Radiobutton(root, text="Pseudo",padx = 20, variable=var,
             value=2, bg="LightSteelBlue1").place(x=290,y=340)
 Checkbutton(root, text ='Include Global Value', takefocus = 0, variable=need_global, bg="LightSteelBlue1").place(x = 200, y = 400)
+Checkbutton(root, text ='Only Global Value', takefocus = 0, variable=only_global, bg="LightSteelBlue1").place(x = 200, y = 430)
 Button(root, text='Submit',width=20,bg='white',
-        fg='Black',command=getdata).place(x=175,y=420)
+        fg='Black',command=getdata).place(x=175,y=450)
 #Button(root, text='tell',width=10,bg='white',fg='Black',command=get_value)
 
 root.mainloop()
